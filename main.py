@@ -97,10 +97,11 @@ class Ui_login(object):
         username = self.user_ent.text()
         password = self.passwd_ent.text()
         check = db.execute("SELECT * FROM users WHERE username = ? AND password = ?;", (str(username), str(password)))
-        if len(check.fetchall()) > 0:
-            self.menuWindowshow()
-        else:
-            self.showMessageBox("Aviso", "Usuário ou senha inválido.")
+        for row in check:
+            if row[0] == username and row[2] == password:
+                self.menuWindowshow()
+            else:
+                self.showMessageBox("Aviso", "Usuário ou senha inválido.")
 
 # Começa a execução do programa.
 if __name__ == "__main__":
