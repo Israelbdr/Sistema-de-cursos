@@ -76,7 +76,7 @@ class Ui_login(object):
         self.welcome_lbl.setText(_translate("login", "Bem-vindo ao SisCursos", None))
 
     #Mostra uma caixa de diálogo.
-    def showMessageBox(self,title,message):
+    def showMessageBox(self, title, message):
         msgBox = QtGui.QMessageBox()
         msgBox.setIcon(QtGui.QMessageBox.Warning)
         msgBox.setWindowTitle(title)
@@ -96,12 +96,15 @@ class Ui_login(object):
         db = sqlite3.connect("Database.db")
         username = self.user_ent.text()
         password = self.passwd_ent.text()
-        check = db.execute("SELECT * FROM users WHERE username = ? AND password = ?;", (str(username), str(password)))
-        for row in check:
-            if row[0] == username and row[2] == password:
-                self.menuWindowshow()
-            else:
-                self.showMessageBox("Aviso", "Usuário ou senha inválido.")
+        if username == "" or password == "":
+            self.showMessageBox("Aviso", "Verifique os espaços em branco")
+        else:
+            check = db.execute("SELECT * FROM users WHERE username = ? AND password = ?;", (str(username), str(password)))
+            for row in check:
+                if row[0] == username and row[2] == password:
+                    self.menuWindowshow()
+                else:
+                    self.showMessageBox("Aviso", "Usuário ou senha inválido.")
 
 # Começa a execução do programa.
 if __name__ == "__main__":

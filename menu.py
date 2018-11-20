@@ -32,9 +32,8 @@ class Ui_menu(object):
         self.tableWidget.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.tableWidget.setGeometry(QtCore.QRect(20, 80, 711, 151))
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
-        self.tableWidget.setColumnCount(7)
+        self.tableWidget.setColumnCount(0)
         self.tableWidget.setRowCount(0)
-
         self.tableWidget.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.tableWidget.horizontalHeader().setDefaultAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter|QtCore.Qt.AlignCenter)
         self.tableWidget.horizontalHeader().setHighlightSections(False)
@@ -42,8 +41,6 @@ class Ui_menu(object):
         self.tableWidget.verticalHeader().setVisible(True)
         self.tableWidget.setAlternatingRowColors(True)
         self.tableWidget.verticalHeader().setDefaultSectionSize(20)
-        nomeColunas = ("CPD","Nome do aluno","Telefone","Endereço","CEP","Email","Código do curso")
-        self.tableWidget.setHorizontalHeaderLabels(nomeColunas)
         self.consulta_button = QtGui.QPushButton(self.centralwidget)
         self.consulta_button.setGeometry(QtCore.QRect(20, 30, 90, 30))
         self.consulta_button.setObjectName(_fromUtf8("consulta_button"))
@@ -55,21 +52,21 @@ class Ui_menu(object):
         self.colunas_box.setGeometry(QtCore.QRect(130, 30, 211, 31))
         self.colunas_box.setEditable(False)
         self.colunas_box.setObjectName(_fromUtf8("colunas_box"))
+        self.colunas_box.insertItem(0, "Alunos")
+        self.colunas_box.insertItem(1, "Cursos")
+        self.colunas_box.currentText()
         self.apagar_button = QtGui.QPushButton(self.centralwidget)
         self.apagar_button.setGeometry(QtCore.QRect(610, 30, 120, 30))
         self.apagar_button.setObjectName(_fromUtf8("apagar_button"))
         self.apagar_button.clicked.connect(self.apagarTabela)
         menu.setCentralWidget(self.centralwidget)
-        menu = QtGui.QMenu()
-        for i, coluna in enumerate(nomeColunas, start=0):
-            acao = QtGui.QAction(coluna, menu)
-            acao.setData(i)
-            menu.addAction(acao)
+
 
         self.retranslateUi(menu)
         QtCore.QMetaObject.connectSlotsByName(menu)
 
 
+    #Função para limpar a tabela de suas entradas
     def apagarTabela(self):
         self.tableWidget.clearContents()
         self.tableWidget.setRowCount(0)
@@ -80,8 +77,8 @@ class Ui_menu(object):
         self.apagar_button.setText(_translate("menu", "Limpar tela", None))
 
     # def menuContextual(self, posicao):
-    #     i = self.tableWidget.selectecIndexes()
-    #     if i:
+    #     arrayDados = self.tableWidget.selectecIndexes()
+    #     if arrayDados:
     #         menu = QMenu()
     #         iGrupo = QtGui.QActionGroup(self)
     #         iGrupo.setExclusive(True)
@@ -91,25 +88,41 @@ class Ui_menu(object):
     #                    if not self.tableWidget.isColumnHidden(coluna)]
     #
 
+    # Função para mostrar a tabela.
     def mostrarTabelaAlunos(self):
         import sqlite3
         db = sqlite3.connect("Database.db")
         cursor = db.cursor()
-        result = cursor.execute("SELECT * FROM alunos;")
 
-        self.tableWidget.clearContents()
+        # Função pra setar qual tabela será exibida.
+        if self.colunas_box.currentText == "Alunos":
+            result = cursor.execute("SELECT * FROM alunos;")
+            nomeColunas = ("CPD", "Nome do aluno", "Telefone", "Endereço", "CEP", "Email", "Código do curso")
+            self.tableWidget.setHorizontalHeaderLabels(nomeColunas)
+            self.tableWidget.setColumnCount(7)
+            row = 0
 
-        row = 0
-        for i in result:
-            self.tableWidget.setRowCount(row+1)
-            idDados = QtGui.QTableWidgetItem(i[0])
-            print(idDados)
-            # idDados.setTextAlignment(4)
-            self.tableWidget.setItem(row, 0, idDados)
-            self.tableWidget.setItem(row, 1, QtGui.QTableWidgetItem(i[1]))
-            self.tableWidget.setItem(row, 2, QtGui.QTableWidgetItem(i[2]))
-            self.tableWidget.setItem(row, 3, QtGui.QTableWidgetItem(i[3]))
-            self.tableWidget.setItem(row, 4, QtGui.QTableWidgetItem(i[4]))
-            self.tableWidget.setItem(row, 5, QtGui.QTableWidgetItem(i[5]))
-            self.tableWidget.setItem(row, 6, QtGui.QTableWidgetItem(i[6]))
-            row+=1
+            for arrayDados in result:
+                self.tableWidget.setRowCount(row + 1)
+                self.tableWidget.setItem(row, 0, QtGui.QTableWidgetItem(str(arrayDados[0])))
+                self.tableWidget.setItem(row, 1, QtGui.QTableWidgetItem(str(arrayDados[1])))
+                self.tableWidget.setItem(row, 2, QtGui.QTableWidgetItem(str(arrayDados[2])))
+                self.tableWidget.setItem(row, 3, QtGui.QTableWidgetItem(str(arrayDados[3])))
+                self.tableWidget.setItem(row, 4, QtGui.QTableWidgetItem(str(arrayDados[4])))
+                self.tableWidget.setItem(row, 5, QtGui.QTableWidgetItem(str(arrayDados[5])))
+                self.tableWidget.setItem(row, 6, QtGui.QTableWidgetItem(str(arrayDados[6])))
+                row += 1
+        else:
+            result = cursor.execute("SELECT * FROM cursos;")
+            nomeColunas = ("Código do Curso", "Nome do Curso", "Carga Horária", "Data de cadastro")
+            self.tableWidget.setHorizontalHeaderLabels(nomeColunas)
+            self.tableWidget.setColumnCount(4)
+            row = 0
+
+            for arrayDados in result:
+                self.tableWidget.setRowCount(row + 1)
+                self.tableWidget.setItem(row, 0, QtGui.QTableWidgetItem(str(arrayDados[0])))
+                self.tableWidget.setItem(row, 1, QtGui.QTableWidgetItem(str(arrayDados[1])))
+                self.tableWidget.setItem(row, 2, QtGui.QTableWidgetItem(str(arrayDados[2])))
+                self.tableWidget.setItem(row, 3, QtGui.QTableWidgetItem(str(arrayDados[3])))
+                row += 1
