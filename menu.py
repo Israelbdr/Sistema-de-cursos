@@ -7,6 +7,8 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
+from adicionar import Ui_adicionarC
+from adicionar2 import Ui_adicionarA
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -28,6 +30,8 @@ class Ui_menu(object):
         menu.resize(746, 480)
         self.centralwidget = QtGui.QWidget(menu)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
+
+        # Setup do menu das tabelas.
         self.tableWidget = QtGui.QTableWidget(self.centralwidget)
         self.tableWidget.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.tableWidget.setGeometry(QtCore.QRect(20, 80, 711, 151))
@@ -35,26 +39,57 @@ class Ui_menu(object):
         self.tableWidget.setColumnCount(0)
         self.tableWidget.setRowCount(0)
         self.tableWidget.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+        self.tableWidget.setSelectionMode(1)
         self.tableWidget.horizontalHeader().setDefaultAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter|QtCore.Qt.AlignCenter)
         self.tableWidget.horizontalHeader().setHighlightSections(False)
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
         self.tableWidget.verticalHeader().setVisible(True)
         self.tableWidget.setAlternatingRowColors(True)
         self.tableWidget.verticalHeader().setDefaultSectionSize(20)
+
+        # Setup do botão consultar.
         self.consulta_button = QtGui.QPushButton(self.centralwidget)
         self.consulta_button.setGeometry(QtCore.QRect(20, 30, 90, 30))
         self.consulta_button.setObjectName(_fromUtf8("consulta_button"))
         self.consulta_button.clicked.connect(self.mostrarTabela)
         self.tableWidget.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
 
+        # Setup do botão Adicionar.
+        self.adiciona_button = QtGui.QPushButton(self.centralwidget)
+        self.adiciona_button.setGeometry(QtCore.QRect(80, 410, 90, 30))
+        self.adiciona_button.setObjectName(_fromUtf8("adiciona_button"))
+        self.adiciona_button.clicked.connect(self.adicionaWindow)
+
+        # Setup do botão Alterar.
+        self.alterar_button = QtGui.QPushButton(self.centralwidget)
+        self.alterar_button.setGeometry(QtCore.QRect(490, 410, 90, 30))
+        self.alterar_button.setObjectName(_fromUtf8("alterar_button"))
+
+        # Setup do botão Remover.
+        self.remover_button = QtGui.QPushButton(self.centralwidget)
+        self.remover_button.setGeometry(QtCore.QRect(610, 410, 90, 30))
+        self.remover_button.setObjectName(_fromUtf8("remover_button"))
+        # self.remover_button.clicked.connect(self.removerTabela)
+
+        # Setup da label de inserção de novas linhas
+        self.insira_lbl = QtGui.QLabel(self.centralwidget)
+        self.insira_lbl.setGeometry(QtCore.QRect(20, 350, 220, 40))
+        self.insira_lbl.setObjectName(_fromUtf8("insira_lbl"))
+
+        # Setup da label de alterar/remover linhas existentes.
+        self.altera_lbl = QtGui.QLabel(self.centralwidget)
+        self.altera_lbl.setGeometry(QtCore.QRect(470, 360, 250, 20))
+        self.altera_lbl.setObjectName(_fromUtf8("altera_lbl"))
+
+        # Setup do combobox para seleção de tabelas.
         self.colunas_box = QtGui.QComboBox(self.centralwidget)
         self.colunas_box.setGeometry(QtCore.QRect(130, 30, 211, 31))
         self.colunas_box.setEditable(False)
         self.colunas_box.setObjectName(_fromUtf8("colunas_box"))
-
         self.colunas_box.addItem("Alunos")
         self.colunas_box.addItem("Cursos")
 
+        # Setup do botão de limpar a tabela.
         self.apagar_button = QtGui.QPushButton(self.centralwidget)
         self.apagar_button.setGeometry(QtCore.QRect(610, 30, 120, 30))
         self.apagar_button.setObjectName(_fromUtf8("apagar_button"))
@@ -66,6 +101,7 @@ class Ui_menu(object):
         QtCore.QMetaObject.connectSlotsByName(menu)
 
 
+
     #Função para limpar as entradas na tabela.
     def apagarTabela(self):
         self.tableWidget.clearContents()
@@ -75,6 +111,11 @@ class Ui_menu(object):
         menu.setWindowTitle(_translate("menu", "Tabelas", None))
         self.consulta_button.setText(_translate("menu", "Consultar", None))
         self.apagar_button.setText(_translate("menu", "Limpar tela", None))
+        self.adiciona_button.setText(_translate("menu", "Adicionar", None))
+        self.alterar_button.setText(_translate("menu", "Alterar", None))
+        self.remover_button.setText(_translate("menu", "Remover", None))
+        self.insira_lbl.setText(_translate("menu", "Deseja inserir uma nova linha? Clique abaixo", None))
+        self.altera_lbl.setText(_translate("menu", "Deseja alterar um linha já existente? Clique abaixo", None))
 
     # Função para mostrar a tabela.
     def mostrarTabela(self):
@@ -119,4 +160,40 @@ class Ui_menu(object):
         db.commit()
         db.close()
 
+    # Função para remover uma tupla da tabela
+    # def removerTabela(self):
+    #     import sqlite3
+    #     db = sqlite3.connect("Database.py")
+    #     cursor = db.cursor()
+    #     if self.tableWidget.selectedItems()
+    #         self.showMessageBox("Aviso", "Você não selecionou nenhuma linha.")
+        # else:
 
+    def adicionaWindow(self):
+        if self.colunas_box.currentText() == "Alunos":
+            self.adiciona_button.clicked.connect(self.adicionaAlunosWindowshow)
+        else:
+            self.adiciona_button.clicked.connect(self.adicionaCursoWindowshow)
+
+    # Função mostrar o menu de inserção na tabela Cursos.
+    def adicionaCursoWindowshow(self):
+        self.adicionaCWindow = QtGui.QDialog()
+        self.ui = Ui_adicionarC()
+        self.ui.setupUi(self.adicionaCWindow)
+        self.adicionaCWindow.show()
+
+    # Função mostrar o menu de inserção na tabela Alunos.
+    def adicionaAlunosWindowshow(self):
+        self.adicionaAWindow = QtGui.QDialog()
+        self.ui = Ui_adicionarA()
+        self.ui.setupUi(self.adicionaAWindow)
+        self.adicionaAWindow.show()
+
+    # Mostra uma caixa de diálogo.
+    def showMessageBox(self, title, message):
+        msgBox = QtGui.QMessageBox()
+        msgBox.setIcon(QtGui.QMessageBox.Warning)
+        msgBox.setWindowTitle(title)
+        msgBox.setText(message)
+        msgBox.setStandardButtons(QtGui.QMessageBox.Ok)
+        msgBox.exec_()
