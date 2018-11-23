@@ -165,10 +165,21 @@ class Ui_menu(object):
     #     import sqlite3
     #     db = sqlite3.connect("Database.py")
     #     cursor = db.cursor()
-    #     if self.tableWidget.selectedItems()
+    #     if self.tableWidget.currentRow()==-1:
     #         self.showMessageBox("Aviso", "Você não selecionou nenhuma linha.")
-        # else:
+    #     else:
+    #         QtGui.QTableWidgetItem(self.tableWidget.currentRow())
+    #         linha = self.tableWidget.selectedItems()[0].row
+    #         if self.colunas_box.currentText()=="Alunos":
+    #             cpd = int(self.tableWidget.item(self.tableWidget.currentRow(), 0))
+    #             cursor.execute("DELETE FROM alunos WHERE cpd = ?;", cpd)
+    #             self.tableWidget.removeRow(linha)
+    #         else:
+    #             cursor.execute("DELETE FROM cursos WHERE codigo_do_curso = ?;", )
+    #             self.tableWidget.removeRow(linha)
+    #         self.mostrarTabela()
 
+    # Função para decidir qual tabela irá adicionar.
     def adicionaWindow(self):
         if self.colunas_box.currentText() == "Alunos":
             self.adiciona_button.clicked.connect(self.adicionaAlunosWindowshow)

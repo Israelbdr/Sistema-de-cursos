@@ -52,7 +52,7 @@ def createTableusers():
 
 # Insere um usuário na tabela.
 def insertTableusers():
-    cursor.execute("INSERT INTO USERS VALUES(?,?,?)",('admin','admin@gmail.com','admin'))
+    cursor.execute("INSERT OR IGNORE INTO USERS VALUES(?,?,?)",('admin','admin@gmail.com','admin'))
 
 # Execução das funções pré-estabelecidas.
 createTablealunos()
@@ -67,3 +67,4 @@ db.commit()
 
 # Fecha a conexão com o banco.
 cursor.close()
+

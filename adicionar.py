@@ -30,6 +30,7 @@ class Ui_adicionarC(object):
         self.ok_button = QtGui.QPushButton(adicionar)
         self.ok_button.setGeometry(QtCore.QRect(210, 260, 75, 23))
         self.ok_button.setObjectName(_fromUtf8("ok_button"))
+        self.ok_button.clicked.connect(self.adicionarCursos)
         self.codigo_ent = QtGui.QLineEdit(adicionar)
         self.codigo_ent.setGeometry(QtCore.QRect(110, 140, 113, 20))
         self.codigo_ent.setStyleSheet(_fromUtf8("background-color: rgb(255, 255, 255);"))
@@ -70,16 +71,27 @@ class Ui_adicionarC(object):
         self.horario_lbl.setText(_translate("adicionar", "Carga Horária:", None))
         self.data_lbl.setText(_translate("adicionar", "Data de Cadastro:", None))
 
+
+    # Mostra uma caixa de diálogo.
+    def showMessageBox(self, title, message):
+        msgBox = QtGui.QMessageBox()
+        msgBox.setIcon(QtGui.QMessageBox.Warning)
+        msgBox.setWindowTitle(title)
+        msgBox.setText(message)
+        msgBox.setStandardButtons(QtGui.QMessageBox.Ok)
+        msgBox.exec_()
+
+
     def adicionarCursos(self):
         import sqlite3
         db = sqlite3.connect("Database.db")
         cursor = db.cursor()
-        if self.codigo_ent.text()=="" or self.nome_ent=="" or self.horario_ent=="" or self.data_ent=="":
+        if self.codigo_ent.text()=="" or self.nome_ent.text()=="" or self.horario_ent.text()=="" or self.data_ent.text()=="":
             self.showMessageBox("Aviso", "Verifique os espaços em branco.")
         else:
-            sqlInsert = ("INSERT INTO cursos(codigo_do_curso, nome_do_curso, data_de_cadastro, carga_horaria)"
-                         " VALUES (?, ?, ?, ?)")
-            valores = (int(self.codigo_ent.text()), str(self.nome_ent.text()), str(self.data_ent.text()), str(self.horario_ent))
+            sqlInsert = ("INSERT INTO cursos(codigo_do_curso, nome_do_curso, data_de_cadastro, carga_horaria) VALUES ("
+                         "?, ?, ?, ?)")
+            valores = (int(self.codigo_ent.text()), str(self.nome_ent.text()), str(self.data_ent.text()), str(self.horario_ent.text()))
             cursor.execute(sqlInsert, valores)
             self.showMessageBox("Aviso", "Curso inserido.")
             db.commit()
