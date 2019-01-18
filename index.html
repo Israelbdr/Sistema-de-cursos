@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Cursos</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                <a href="#" onclick='show(1);'>Alunos</a>
+                <br />
+                <a href="#" onclick='show(2);'>Cursos</a>
+                <br />
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <div id="table1"> Content of 1 </div>
+                <div id="table2"> Content of 2 </div>
+            </td>
+        </tr>
+    </table>
+<style type="text/css">
+	td {
+	vertical-align: top;
+}
+#table1, #table2, #table3, #table4 {
+	    display: none;
+}
+
+</style>
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+	function show(nr) {
+    document.getElementById("table1").style.display="none";
+    document.getElementById("table2").style.display="none";
+    document.getElementById("table"+nr).style.display="block";
+}
+</script>
