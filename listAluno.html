@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Cursos</title>
+</head>
+<body><table  border = 1>
+    <thead>
+        <td>CPD</td>
+        <td>Nome do Aluno</td>
+        <td>Telefone</td>
+        <td>Endereço</td>
+        <td>CEP</td>
+        <td>E-mail</td>
+        <td>Curso</td>
+    </thead>
+    <tr>
+        {% for row in rows %}
+            <td>{{ row["cpd"] }}</td>
+            <td>{{ row["nome_do_aluno"] }}</td>
+            <td>{{ row["telefone"] }}</td>
+            <td>{{ row["endereco"] }}</td>
+            <td>{{ row["cep"]}}</td>
+            <td>{{ row["email"]}}</td>
+            <td>{{ row["nome_do_curso"]}}</td>
+        {% endfor %}
+    </tr>
+</table>
+</body>
+</html>

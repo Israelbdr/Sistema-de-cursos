@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Cursos</title>
+</head>
+<body>
+<table  border = 1>
+    <thead>
+        <td>Código do Curso</td>
+        <td>Nome do Curso</td>
+        <td>Carga Horária</td>
+        <td>Data de Cadastro</td>
+    </thead>
+	<tr>
+		{% for row in rows %}
+            <td>{{ row["codigo_do_curso"] }}</td>
+            <td>{{ row["nome_do_curso"] }}</td>
+            <td>{{ row["carga_horaria"] }}</td>
+            <td>{{ row["data_de_cadastro"] }}</td>
+		{% endfor %}
+	</tr>
+</table>
+</body>
+</html>
