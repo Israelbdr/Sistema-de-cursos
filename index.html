@@ -1,84 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sistema de Cursos</title>
-</head>
-<body>
-    <table>
-        <tr>
-            <td>
-                <a href="" onclick='show(1);'>Alunos</a>
-                <br />
-                <a href="" onclick='show(2);'>Cursos</a>
-                <br />
-            </td>
-            <td>
-                &nbsp;
-            </td>
-            <td>
-                <div id="table1">
-                	<table  border = 1>
-                        <thead>
-                            <td>Código do Curso</td>
-                            <td>Nome do Curso</td>
-                            <td>Carga Horária</td>
-                            <td>Data de Cadastro</td>
-                        </thead>
-                		<tr>
-                			{% for row in rows %}
-                                <td>{{ row["codigo_do_curso"] }}</td>
-                                <td>{{ row["nome_do_curso"] }}</td>
-                                <td>{{ row["carga_horaria"] }}</td>
-                                <td>{{ row["data_de_cadastro"] }}</td>
-                			{% endfor %}
-                		</tr>
-                	</table>
-                </div>
-                <div id="table2">
-                    <table  border = 1>
-                        <thead>
-                            <td>CPD</td>
-                            <td>Nome do Aluno</td>
-                            <td>Telefone</td>
-                            <td>Endereço</td>
-                            <td>CEP</td>
-                            <td>E-mail</td>
-                            <td>Curso</td>
-                        </thead>
-                        <tr>
-                            {% for row in rows %}
-                                <td>{{ row["cpd"] }}</td>
-                                <td>{{ row["nome_do_aluno"] }}</td>
-                                <td>{{ row["telefone"] }}</td>
-                                <td>{{ row["endereco"] }}</td>
-                                <td>{{ row["cep"]}}</td>
-                                <td>{{ row["email"]}}</td>
-                                <td>{{ row["nome_do_curso"]}}</td>
-                            {% endfor %}
-                        </tr>
-                    </table>
-                </div>
-            </td>
-        </tr>
-    </table>
-<style type="text/css">
-	td {
-	vertical-align: top;
-}
-#table1, #table2, #table3, #table4 {
-	    display: none;
-}
-
-</style>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Sistema de Controle</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>
+                    <a href="/alunos" >Alunos</a>
+                    <br />
+                    <a href="/cursos" >Cursos</a>
+                    <br />
+                </td>
+            </tr>
+        </table>
+    </body>
 </html>
-
-<script type="text/javascript">
-
-	function show(nr) {
-    document.getElementById("table1").style.display="none";
-    document.getElementById("table2").style.display="none";
-    document.getElementById("table"+nr).style.display="block";
-}
-</script>
