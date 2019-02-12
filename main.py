@@ -70,10 +70,22 @@ def addAluno():
         db.close
     return render_template('newAluno.html')
 
-# @app.route("/removercurso", methods=['POST', 'GET'])
-# def removeCurso():
-#     if request.method == 'POST':
-#
+@app.route("/editarcurso/<int:codigo>", methods=['PUT', 'GET'])
+def editCurso():
+    if request.method == 'PUT':
+
+
+        with sqlite3.connect("database.db") as db:
+            cursor = db.cursor()
+            cursor.execute("UPDATE INTO cursos (codigo_do_curso,nome_do_curso,carga_horaria,data_de_cadastro)"
+                           "VALUES(?, ?, ?, ?)", (codigo, nome, horas, data))
+
+            db.commit
+            msg = "Curso Alterado!"
+
+        return render_template("resultado.html", msg=msg)
+        db.close
+    return render_template('editarCurso.html')
 
 if __name__ == '__main__':
     app.run(use_reloader=True, debug=True)

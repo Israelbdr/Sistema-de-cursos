@@ -1,31 +1,31 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Sistema de Cursos</title>
+        <title>Sistema de Controle</title>
     </head>
     <body>
-        <h2>Sistema de Cursos</h2>
-            <table  border = 1>
-                <thead>
-                    <td>Código do Curso</td>
-                    <td>Nome do Curso</td>
-                    <td>Carga Horária</td>
-                    <td>Data de Cadastro</td>
-                </thead>
 
-        		{% for row in rows %}
-                    <tr>
-                        <td>{{ row["codigo_do_curso"] }}</td>
-                        <td>{{ row["nome_do_curso"] }}</td>
-                        <td>{{ row["carga_horaria"] }}</td>
-                        <td>{{ row["data_de_cadastro"] }}</td>
-                    </tr>
-        		{% endfor %}
-            </table>
-        
+        <h2>Sistema de Cursos</h2>
+        <table  id='tableCurso' border = 1>
+            <thead>
+                <td>Código do Curso</td>
+                <td>Nome do Curso</td>
+                <td>Carga Horária</td>
+                <td>Data de Cadastro</td>
+            </thead>
+    		{% for row in rows %}
+                <tr>
+                    <td><a href="{{ url_for('editCurso') }}"> {{ row["codigo_do_curso"] }} </a></td>
+                    <td>{{ row["nome_do_curso"] }}</td>
+                    <td>{{ row["carga_horaria"] }}</td>
+                    <td>{{ row["data_de_cadastro"] }}</td>
+                </tr>
+    		{% endfor %}
+        </table>
+
         <a href="/adicionarcurso">Adicionar curso</a><br>
-        <a href="/removercurso">Remover curso</a><br>
         <a href="/"> Página Inicial</a><br>
     </body>
 </html>
