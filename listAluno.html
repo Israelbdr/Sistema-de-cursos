@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Sistema de Controle</title>
-        <script src="jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <h2>Sistema de Alunos</h2>
@@ -18,6 +18,8 @@
                 <td>Curso</td>
             </thead>
             {% for row in rows%}
+                {% set cpd = row["cpd"] %}
+
                 <tr>
                     <td>{{ row["cpd"] }}</td>
                     <td>{{ row["nome_do_aluno"] }}</td>
@@ -26,12 +28,13 @@
                     <td>{{ row["cep"]}}</td>
                     <td>{{ row["email"]}}</td>
                     <td>{{ row["nome_do_curso"]}}</td>
+                    <td><a href="/alteraraluno/{{cpd}}"> Alterar </a></td>
+                    <td><a href="/removeraluno/{{cpd}}"> Deletar </a></td>
                 </tr>
             {% endfor %}
         </table><br>
-        
-        <a href="/adicionaraluno"> Adicionar aluno</a><br>
-        <a href="/"> Página Inicial</a>
+
+        <button id="adicionaraluno"><a href="/adicionaraluno"> Adicionar aluno</a></button><br>
+        <button id="Página Inicial"><a href="/"> Página Inicial</a></button>    
     </body>
 </html>
-

@@ -73,7 +73,7 @@ def addAluno():
 @app.route("/editarcurso/<int:codigo>", methods=['PUT', 'GET'])
 def editCurso():
     if request.method == 'PUT':
-
+        # request.form[]
 
         with sqlite3.connect("database.db") as db:
             cursor = db.cursor()
@@ -86,6 +86,18 @@ def editCurso():
         return render_template("resultado.html", msg=msg)
         db.close
     return render_template('editarCurso.html')
+
+@app.route("/removeraluno/<int:cpd>", methods=['GET', 'DELETE'])
+def deleteAluno(cpd):
+    if request.method == 'DELETE':
+        with sqlite3.connect("database.db") as db:
+            cursor = db.cursor()
+            cursor.execute("DELETE FROM alunos WHERE cpd = ?", cpd)
+            db.commit
+            msg = "Aluno Removido!"
+        return render_template("resultado.html", msg=msg)
+        db.close
+    return render_template("removeAluno.html")
 
 if __name__ == '__main__':
     app.run(use_reloader=True, debug=True)

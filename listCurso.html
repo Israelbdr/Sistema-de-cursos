@@ -3,6 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
         <title>Sistema de Controle</title>
     </head>
     <body>
@@ -17,15 +18,17 @@
             </thead>
     		{% for row in rows %}
                 <tr>
-                    <td><a href="{{ url_for('editCurso') }}"> {{ row["codigo_do_curso"] }} </a></td>
+                    <td>{{ row["codigo_do_curso"] }} </td>
                     <td>{{ row["nome_do_curso"] }}</td>
                     <td>{{ row["carga_horaria"] }}</td>
                     <td>{{ row["data_de_cadastro"] }}</td>
+                    <td><button> Alterar </button></td>
+                    <td><button> Remover </button></td>
                 </tr>
     		{% endfor %}
         </table>
 
-        <a href="/adicionarcurso">Adicionar curso</a><br>
-        <a href="/"> Página Inicial</a><br>
+        <button id="adicionarCurso"><a href="/adicionarcurso">Adicionar curso</a></button><br>
+        <button id="Página Inicial"><a href="/"> Página Inicial</a></button><br>
     </body>
 </html>
